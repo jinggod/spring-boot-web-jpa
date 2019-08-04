@@ -1,0 +1,19 @@
+package com.frontsurf.springwebjpa.dao.user;
+
+import com.frontsurf.springwebjpa.common.base.repository.BaseRepository;
+import com.frontsurf.springwebjpa.domain.user.User;
+import org.springframework.stereotype.Repository;
+
+/**
+ * @Author xu.xiaojing
+ * @Date 2019/6/24 1:31
+ * @Email xu.xiaojing@frontsurf.com
+ * @Description
+ */
+
+@Repository
+public interface UserRepository extends BaseRepository<User,String> {
+
+//    @QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+    User findByUsername(String userName);
+}
