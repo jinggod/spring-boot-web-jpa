@@ -35,13 +35,8 @@ public class FileController {
      * @return
      */
     @PostMapping("/upload")
-    public Return uploadFile(@RequestParam("file") MultipartFile file) {
-        try {
-            FileUtils.saveUploadFile(file);
-        } catch (DataException e) {
-            e.printStackTrace();
-            return Return.fail(e.getCode(), e.getErrorMessage());
-        }
+    public Return uploadFile(@RequestParam("file") MultipartFile file) throws DataException {
+        FileUtils.saveUploadFile(file);
         return Return.success("文件删除成功");
     }
 
@@ -52,19 +47,13 @@ public class FileController {
      * @return
      */
     @PostMapping("/batch/upload")
-    public Return batchUploadFile(HttpServletRequest request) {
+    public Return batchUploadFile(HttpServletRequest request) throws DataException {
 
         List<MultipartFile> files = ((MultipartHttpServletRequest) request)
                 .getFiles("file");
-        try {
-            for (MultipartFile file : files) {
-                FileUtils.saveUploadFile(file);
-            }
-        } catch (DataException e) {
-            e.printStackTrace();
-            return Return.fail(e.getCode(), e.getErrorMessage());
+        for (MultipartFile file : files) {
+            FileUtils.saveUploadFile(file);
         }
-
         return Return.success("文件上传成功");
     }
 

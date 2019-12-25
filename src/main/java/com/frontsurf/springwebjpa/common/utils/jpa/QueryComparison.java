@@ -1,6 +1,9 @@
 package com.frontsurf.springwebjpa.common.utils.jpa;
 
-public enum QueryTypeEnum {
+/**
+ * sql的参数比较条件
+ */
+public enum QueryComparison {
     like,
     equal,
     ne,

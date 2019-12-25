@@ -84,6 +84,17 @@ public class Return implements Serializable {
         return new Return(code, msg);
     }
 
+    /**
+     *
+     * @param code 错误吗
+     * @param msg 错误提示信息
+     * @param detail 错误的详细信息
+     * @return
+     */
+    public static Return fail(Integer code, String msg,Object detail) {
+        return new Return(detail,code, msg);
+    }
+
     public Integer getCode() {
         return code;
     }

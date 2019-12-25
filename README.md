@@ -62,8 +62,9 @@
  
  #### JPA的动态sql的写法介绍
  
- JPA在能解决掉80%~90%的sql，这些sql相对来说，逻辑简单，但面对 多表连查有点不足；
+ **描述**：
  
+ JPA在能解决掉80%~90%的sql，这些sql相对来说，逻辑简单，但面对 多表连查有点不足；
  
  最难以处理的是 多表查询 + 动态sql（约占 5%~10%），目前的看了网上的解决方案，有四种：
  
@@ -72,6 +73,10 @@
  - QueryDSL：QueryDSL仅仅是一个通用的查询框架，专注于通过Java API构建类型安全的SQL查询。适用于自定义sql场景比较复杂、比较多的情况下：https://blog.csdn.net/qq_30054997/article/details/79420141
  - JPA+mybatis：这种方式可能会有坑，两个ORM框架，怎么感觉都有点重，这个几乎不可能考虑；
 
+**解决方案**：
+
+1. `BaseRepoService` 提供了简单的动态查询的方法，满足大部分的情况；
+2. `BaseService` 继承了`BaseRepoService`接口，并提供了 原生sql的接口，可以满足所有情况。
 
 
 
@@ -80,7 +85,7 @@ https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tu
 
 
 
-问题总结：
+### 问题总结：
 
 - 在JPA中，所有的查询所需的字段 都是指 实体类的属性，即在JPA不使用数据库字段；
 - 遇到 @OneToOne,OneToMany 查询出异常时，第一个要排查的是关联关系是否正确；
@@ -112,3 +117,21 @@ https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tu
 
  
  @JsonGetter(value = "transientProperty")
+
+
+
+**遇到的问题**:
+
+1. 【spring data jpa】报错如下：Caused by: javax.persistence.EntityNotFoundException: Unable to find com.rollong.chinatower.server.persistence.entity.staff.Department with id 0
+
+原因：外键找不到就抛异常
+解决方案：添加此注解 `@NotFound(action=NotFoundAction.IGNORE)`
+
+
+2. easypoi 有不少BUG，出BUG，记得去看其issue（https://gitee.com/lemur/easypoi/issues）
+ 
+- 遇到过的问题：Set类型的属性，导入时无法初始化，会导致 NullPointExecption，所以需要预先初始化。List类型的不用
+- easypoi 导入时无法判断空字符串行、如果存在集合，最后一行是1对1的就会莫名其妙的出现多行。这些都需要手动处理；
+- 与easypoi类似的，阿里团队也开源了一个easyexcel 工具。easyexcel 主要解决大数据量导入的内存占用大的问题（有ehcache组件），额外支持简单的注解导入，特性远没有easypoi多，但easypoi是没有解决大数据量导入的问题。
+ 
+ 

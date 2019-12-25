@@ -3,8 +3,9 @@ package com.frontsurf.springwebjpa.service.role.impl;
 import com.frontsurf.springwebjpa.common.base.repository.BaseRepository;
 import com.frontsurf.springwebjpa.common.base.service.BaseServiceImpl;
 import com.frontsurf.springwebjpa.common.utils.exception.DataException;
+import com.frontsurf.springwebjpa.common.utils.jpa.FieldQueryParam;
 import com.frontsurf.springwebjpa.common.utils.jpa.QueryParam;
-import com.frontsurf.springwebjpa.common.utils.jpa.QueryTypeEnum;
+import com.frontsurf.springwebjpa.common.utils.jpa.QueryComparison;
 import com.frontsurf.springwebjpa.common.utils.web.ListRequestParam;
 import com.frontsurf.springwebjpa.common.utils.web.Pager;
 import com.frontsurf.springwebjpa.common.utils.web.Return;
@@ -62,7 +63,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, String> implements Ro
         List<QueryParam> params = new LinkedList<>();
         if (role != null) {
             if (StringUtils.isNotBlank(role.getName())) {
-                QueryParam param = new QueryParam("name", QueryTypeEnum.like, role.getName());
+                QueryParam param = new FieldQueryParam("name", QueryComparison.like, role.getName());
                 params.add(param);
             }
         }

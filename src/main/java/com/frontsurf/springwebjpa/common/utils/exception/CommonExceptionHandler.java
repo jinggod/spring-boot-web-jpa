@@ -103,13 +103,16 @@ public class CommonExceptionHandler {
 
 
     /**
-     * 处理订单排程过程中的数据异常情况
+     * 处理业务逻辑上的异常
      */
     @ExceptionHandler(value = DataException.class)
     public Return hanleDataException(DataException exception) {
         exception.printStackTrace();
-
-        return Return.fail(400, "数据异常，请联系管理员，错误提示：" + exception.getMessage());
+        if(exception.getDetail() == null){
+            return Return.fail(exception.getCode(),  exception.getMessage());
+        }else{
+            return Return.fail(exception.getCode(),exception.getErrorMessage(),exception.getDetail());
+        }
     }
 
     /**

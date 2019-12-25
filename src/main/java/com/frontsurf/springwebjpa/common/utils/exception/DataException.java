@@ -14,8 +14,12 @@ public class DataException extends Exception {
 
     Logger logger = LoggerFactory.getLogger(DataException.class);
 
+    //错误提示信息
     private String errorMessage;
+    //错误编码
     private Integer code;
+    // 具体的错误信息
+    private Object detail;
 
 
     public DataException(String errorMessage) {
@@ -30,7 +34,12 @@ public class DataException extends Exception {
         this.errorMessage = errorMessage;
     }
 
-
+    public DataException( Integer code, String errorMessage, Object detail) {
+        super(errorMessage);
+        this.errorMessage = errorMessage;
+        this.code = code;
+        this.detail = detail;
+    }
 
     public Integer getCode() {
         return code;
@@ -46,6 +55,14 @@ public class DataException extends Exception {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public Object getDetail() {
+        return detail;
+    }
+
+    public void setDetail(Object detail) {
+        this.detail = detail;
     }
 
     @Override

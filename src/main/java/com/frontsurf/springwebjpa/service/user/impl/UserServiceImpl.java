@@ -3,9 +3,10 @@ package com.frontsurf.springwebjpa.service.user.impl;
 import com.frontsurf.springwebjpa.common.base.repository.BaseRepository;
 import com.frontsurf.springwebjpa.common.base.service.BaseServiceImpl;
 import com.frontsurf.springwebjpa.common.utils.exception.DataException;
+import com.frontsurf.springwebjpa.common.utils.jpa.FieldQueryParam;
 import com.frontsurf.springwebjpa.common.utils.jpa.JPAUtils;
 import com.frontsurf.springwebjpa.common.utils.jpa.QueryParam;
-import com.frontsurf.springwebjpa.common.utils.jpa.QueryTypeEnum;
+import com.frontsurf.springwebjpa.common.utils.jpa.QueryComparison;
 import com.frontsurf.springwebjpa.common.utils.web.ListRequestParam;
 import com.frontsurf.springwebjpa.common.utils.web.Pager;
 import com.frontsurf.springwebjpa.common.utils.web.Return;
@@ -77,7 +78,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
         List<QueryParam> params = new LinkedList<>();
         if (user != null) {
             if (StringUtils.isNotBlank(user.getUsername())) {
-                QueryParam param = new QueryParam("username", QueryTypeEnum.like, user.getUsername());
+                QueryParam param = new FieldQueryParam("username", QueryComparison.like, user.getUsername());
                 params.add(param);
             }
         }

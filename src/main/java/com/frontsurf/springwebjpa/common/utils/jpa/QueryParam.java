@@ -2,47 +2,27 @@ package com.frontsurf.springwebjpa.common.utils.jpa;
 
 /**
  * @Author xu.xiaojing
- * @Date 2019/6/25 15:24
+ * @Date 2019/10/29 17:29
  * @Email xu.xiaojing@frontsurf.com
- * @Description
+ * @Description 动态查询参数
  */
 
-public class QueryParam{
+public abstract class QueryParam {
 
-   /**
-    * 必须是实体类的属性，而非数据库字段
-    */
-   private String paramName;
-   private QueryTypeEnum queryType;
-   private Object value;
+    /**
+     * 实体的里面的字段名，非数据库字段名
+     */
+    private String fieldName;
 
-   public QueryParam(String paramName, QueryTypeEnum queryType, Object value) {
-      this.paramName = paramName;
-      this.queryType = queryType;
-      this.value = value;
-   }
+    public QueryParam(String fieldName) {
+        this.fieldName = fieldName;
+    }
 
-   public String getParamName() {
-      return paramName;
-   }
+    public String getFieldName() {
+        return fieldName;
+    }
 
-   public void setParamName(String paramName) {
-      this.paramName = paramName;
-   }
-
-   public QueryTypeEnum getQueryType() {
-      return queryType;
-   }
-
-   public void setQueryType(QueryTypeEnum queryType) {
-      this.queryType = queryType;
-   }
-
-   public Object getValue() {
-      return value;
-   }
-
-   public void setValue(Object value) {
-      this.value = value;
-   }
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
 }

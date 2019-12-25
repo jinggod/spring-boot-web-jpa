@@ -48,15 +48,7 @@ public class ExcelUtils {
             logger.error("导入失败", e);
             throw new DataException(Return.VALIDATION_ERROR, "导入失败");
         }
-        if (result.isVerfiyFail()) {
-            StringBuilder builder = new StringBuilder();
-            builder.append("数据异常，出错的行号以及错误信息如下：");
-            for (T t : result.getFailList()) {
-                builder.append("第" + t.getRowNum() + "行[" + t.getErrorMsg() + "]");
-            }
-            throw new DataException(Return.VALIDATION_ERROR, builder.toString());
-        }
-        return result.getList();
+        return handleExcelResult(result);
     }
 
     /**
@@ -82,6 +74,12 @@ public class ExcelUtils {
             logger.error("导入失败", e);
             throw new DataException(Return.VALIDATION_ERROR, "导入失败");
         }
+
+        return handleExcelResult(result);
+    }
+
+
+    private static  <T extends DataEntity> List<T> handleExcelResult(ExcelImportResult<T>  result) throws DataException {
         if (result.isVerfiyFail()) {
             StringBuilder builder = new StringBuilder();
             builder.append("数据异常，出错的行号以及错误信息如下：");

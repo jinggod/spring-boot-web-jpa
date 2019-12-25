@@ -56,18 +56,20 @@ public class FileUtils {
     public static void downloadFile(HttpServletResponse response, HttpServletRequest request, InputStream inputStream, String fileName) throws UnsupportedEncodingException {
 
         //处理中文文件名乱码
-        if (request.getHeader("User-Agent").toUpperCase().contains("MSIE") ||
+        /*if (request.getHeader("User-Agent").toUpperCase().contains("MSIE") ||
                 request.getHeader("User-Agent").toUpperCase().contains("TRIDENT")
                 || request.getHeader("User-Agent").toUpperCase().contains("EDGE")) {
             fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
         } else {
             //非IE浏览器的处理：
             fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
-        }
+        }*/
         // 配置文件下载
         response.setHeader("content-type", "application/octet-stream");
         response.setContentType("application/octet-stream");
-        fileName = URLEncoder.encode(fileName);
+//        fileName = URLEncoder.encode(fileName);
+//        fileName = new String(fileName.getBytes("ISO8859-1"), "UTF-8");
+        System.out.println(fileName);
         //处理中文文件名乱码
         if (request.getHeader("User-Agent").toUpperCase().contains("MSIE") ||
                 request.getHeader("User-Agent").toUpperCase().contains("TRIDENT")

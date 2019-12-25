@@ -32,5 +32,8 @@ public class GlobalConfig {
         FILE_SAVE_PATH = fileSavePath;
     }
 
+    /**
+     * 系统配置
+     */
     public static final Map<String,Object> systemConfigMap = new HashMap<>();
 }
